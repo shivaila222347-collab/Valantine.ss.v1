@@ -19,22 +19,78 @@
       border-radius:5px; 
       cursor:pointer; 
       color:white;
-      margin-top:20px;
+      margin:10px;
     }
+    img { margin-top:20px; border-radius:10px; }
   </style>
 </head>
 <body>
-  <h1>Hello, my Valentine 💖</h1>
-  <p>Do you want to go on a special date with me?</p>
-  <button onclick="answerYes()">Yes 💕</button>
-  <button onclick="answerNo()">No 😢</button>
+  <h1>Welcome, my Valentine 💖</h1>
+  <p id="question">Do you want to go on a special date with me?</p>
+  <div id="options">
+    <button onclick="q1Yes()">Yes 💕</button>
+    <button onclick="q1No()">No 😢</button>
+  </div>
 
   <script>
-    function answerYes() {
-      alert("Yay! I knew you’d say yes! ❤️");
+    // Question 1
+    function q1Yes() {
+      document.getElementById("question").innerText = "Yay! What would you like to do first?";
+      document.getElementById("options").innerHTML = `
+        <button onclick="q2Movie()">Watch a movie 🎬</button>
+        <button onclick="q2Dinner()">Have dinner 🍽️</button>
+      `;
     }
-    function answerNo() {
+
+    function q1No() {
       alert("Oh no! But I’ll keep trying 😉");
+    }
+
+    // Question 2
+    function q2Movie() {
+      document.getElementById("question").innerText = "Movie night! Popcorn ready 🍿. Choose the movie genre:";
+      document.getElementById("options").innerHTML = `
+        <button onclick="q3RomCom()">Romantic Comedy ❤️</button>
+        <button onclick="q3Action()">Action & Adventure 💥</button>
+      `;
+    }
+
+    function q2Dinner() {
+      document.getElementById("question").innerText = "Dinner sounds delicious 🍝! What cuisine do you prefer?";
+      document.getElementById("options").innerHTML = `
+        <button onclick="q3Italian()">Italian 🍕</button>
+        <button onclick="q3Sushi()">Sushi 🍣</button>
+      `;
+    }
+
+    // Question 3
+    function q3RomCom() { nextQuestion("RomCom vibes! Laughter and love 😍"); }
+    function q3Action() { nextQuestion("Action-packed fun together 💥"); }
+    function q3Italian() { nextQuestion("Pizza and pasta for the win 🍕"); }
+    function q3Sushi() { nextQuestion("Sushi night! Fancy and fun 🍣"); }
+
+    // Question 4
+    function nextQuestion(message) {
+      document.getElementById("question").innerText = message + "\nNext, pick your favorite spot for our date:";
+      document.getElementById("options").innerHTML = `
+        <button onclick="q5Park()">Romantic park 🌳</button>
+        <button onclick="q5Beach()">Beach sunset 🌅</button>
+      `;
+    }
+
+    // Question 5
+    function q5Park() { finalReveal("Park vibes! Nature and love 💚"); }
+    function q5Beach() { finalReveal("Beach sunset! Endless romance 🌊"); }
+
+    // Final Valentine Reveal
+    function finalReveal(message) {
+      document.getElementById("question").innerHTML = `💖 ${message} 💖<br><br>Will you be my Valentine?`;
+      document.getElementById("options").innerHTML = `
+        <button onclick="alert('Yay! You made me the happiest 💖')">Yes 💕</button>
+        <button onclick="alert('Oh no! But my heart is patient 😉')">No 😢</button>
+        <br><br>
+        <img src="https://i.imgur.com/3ZQ3kzX.png" width="200"/>
+      `;
     }
   </script>
 </body>
