@@ -2,96 +2,146 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Valentine 💖</title>
+  <title>For My Valentine 💖</title>
+
+  <!-- Background music -->
+  <audio id="bgMusic" loop autoplay>
+    <source src="https://cdn.pixabay.com/download/audio/2022/02/23/audio_1cfb736d9e.mp3?filename=lovely-romantic-11281.mp3" type="audio/mpeg">
+    <!-- Fallback -->
+  </audio>
+
   <style>
-    body { 
-      text-align:center; 
-      font-family:sans-serif; 
-      margin-top:50px; 
-      background-color: #ffe6e6; 
+    body {
+      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #ffe6e6;
       color: #b30059;
+      overflow-x: hidden;
     }
-    button { 
-      padding:10px 20px; 
-      font-size:16px; 
-      background-color:#ff66b2; 
-      border:none; 
-      border-radius:5px; 
-      cursor:pointer; 
-      color:white;
-      margin:10px;
+    h1 {
+      font-size: 2em;
+      margin-top: 50px;
     }
-    img { margin-top:20px; border-radius:10px; }
+    #question {
+      margin: 30px 20px;
+      font-size: 1.2em;
+    }
+    button {
+      padding: 12px 25px;
+      font-size: 16px;
+      background: #ff4da6;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      margin: 10px;
+      transition: 0.2s;
+    }
+    button:hover {
+      transform: scale(1.1);
+      background: #ff1a75;
+    }
+    .gif-img {
+      width: 220px;
+      margin-top: 20px;
+      border-radius: 12px;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      font-size: 1.8em;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      from { transform: translateY(100vh) scale(0.7); opacity:1; }
+      to { transform: translateY(-30vh) scale(1.3); opacity:0; }
+    }
   </style>
 </head>
+
 <body>
-  <h1>Welcome, my Valentine 💖</h1>
+
+  <h1>💞 For My Valentine 💞</h1>
   <p id="question">Do you want to go on a special date with me?</p>
+
   <div id="options">
-    <button onclick="q1Yes()">Yes 💕</button>
-    <button onclick="q1No()">No 😢</button>
+    <button onclick="q1('yes')">Yes 💕</button>
+    <button onclick="q1('no')">No 😢</button>
   </div>
 
   <script>
-    // Question 1
-    function q1Yes() {
-      document.getElementById("question").innerText = "Yay! What would you like to do first?";
+    // Create floating hearts randomly
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.color = `rgba(255, ${Math.floor(Math.random()*150)}, ${Math.floor(Math.random()*200)}, 0.9)`;
+      heart.style.animationDuration = Math.random() * 5 + 4 + 's';
+      heart.innerText = '💗';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 9000);
+    }, 800);
+
+    function q1(ans) {
+      document.getElementById("question").innerText = ans === 'no' ?
+        "Oh, don’t worry — let’s keep going 😉" :
+        "Yay! What would you like first?";
       document.getElementById("options").innerHTML = `
-        <button onclick="q2Movie()">Watch a movie 🎬</button>
-        <button onclick="q2Dinner()">Have dinner 🍽️</button>
+        <button onclick="q2('movie')">Watch a movie 🎬</button>
+        <button onclick="q2('dinner')">Have dinner 🍽️</button>
       `;
     }
 
-    function q1No() {
-      alert("Oh no! But I’ll keep trying 😉");
+    function q2(choice) {
+      if (choice === 'movie') {
+        document.getElementById("question").innerText = "Movie night! Choose a vibe:";
+        document.getElementById("options").innerHTML = `
+          <button onclick="q3('romcom')">Romantic Comedy ❤️</button>
+          <button onclick="q3('fantasy')">Fantasy & Magic ✨</button>
+        `;
+      } else {
+        document.getElementById("question").innerText = "Dinner date! Pick a flavor:";
+        document.getElementById("options").innerHTML = `
+          <button onclick="q3('italian')">Italian 🍕</button>
+          <button onclick="q3('sushi')">Sushi 🍣</button>
+        `;
+      }
     }
 
-    // Question 2
-    function q2Movie() {
-      document.getElementById("question").innerText = "Movie night! Popcorn ready 🍿. Choose the movie genre:";
+    function q3(choice) {
+      let msg = "";
+      if (choice === 'romcom') msg="Laugh & love with a romcom 😍";
+      if (choice === 'fantasy') msg="Dreamy fantasy night ✨";
+      if (choice === 'italian') msg="Delicious Italian feast 🍕";
+      if (choice === 'sushi') msg="Sushi sparkle 🍣";
+
+      document.getElementById("question").innerText = msg + "\nPick where we go next:";
       document.getElementById("options").innerHTML = `
-        <button onclick="q3RomCom()">Romantic Comedy ❤️</button>
-        <button onclick="q3Action()">Action & Adventure 💥</button>
+        <button onclick="q4('park')">Romantic Park 🌳</button>
+        <button onclick="q4('beach')">Beach Sunset 🌅</button>
       `;
     }
 
-    function q2Dinner() {
-      document.getElementById("question").innerText = "Dinner sounds delicious 🍝! What cuisine do you prefer?";
-      document.getElementById("options").innerHTML = `
-        <button onclick="q3Italian()">Italian 🍕</button>
-        <button onclick="q3Sushi()">Sushi 🍣</button>
-      `;
+    function q4(loc) {
+      let msg = loc === 'park' ? "Blissful park vibes 🌳" : "Sunset by the sea 🌅";
+      document.getElementById("question").innerText = msg + "\nAlmost there...";
+      document.getElementById("options").innerHTML = `<button onclick="finalReveal()">See the surprise 💖</button>`;
     }
 
-    // Question 3
-    function q3RomCom() { nextQuestion("RomCom vibes! Laughter and love 😍"); }
-    function q3Action() { nextQuestion("Action-packed fun together 💥"); }
-    function q3Italian() { nextQuestion("Pizza and pasta for the win 🍕"); }
-    function q3Sushi() { nextQuestion("Sushi night! Fancy and fun 🍣"); }
-
-    // Question 4
-    function nextQuestion(message) {
-      document.getElementById("question").innerText = message + "\nNext, pick your favorite spot for our date:";
+    function finalReveal() {
+      document.getElementById("question").innerHTML = "💘 Will you be my Valentine? 💘";
       document.getElementById("options").innerHTML = `
-        <button onclick="q5Park()">Romantic park 🌳</button>
-        <button onclick="q5Beach()">Beach sunset 🌅</button>
-      `;
-    }
-
-    // Question 5
-    function q5Park() { finalReveal("Park vibes! Nature and love 💚"); }
-    function q5Beach() { finalReveal("Beach sunset! Endless romance 🌊"); }
-
-    // Final Valentine Reveal
-    function finalReveal(message) {
-      document.getElementById("question").innerHTML = `💖 ${message} 💖<br><br>Will you be my Valentine?`;
-      document.getElementById("options").innerHTML = `
-        <button onclick="alert('Yay! You made me the happiest 💖')">Yes 💕</button>
-        <button onclick="alert('Oh no! But my heart is patient 😉')">No 😢</button>
+        <button onclick="alert('Yes! You made my heart sing 💖')">Yes 💕</button>
+        <button onclick="alert('Oh… but my heart still hopes 😉')">No 😢</button>
         <br><br>
-        <img src="https://i.imgur.com/3ZQ3kzX.png" width="200"/>
+        <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" class="gif-img"/>
       `;
     }
   </script>
+
 </body>
 </html>
+
