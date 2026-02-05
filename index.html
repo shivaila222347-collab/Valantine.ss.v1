@@ -3,10 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <title>My Valentine 💖</title>
+  <style>
+    body { 
+      text-align:center; 
+      font-family:sans-serif; 
+      margin-top:50px; 
+      background-color: #ffe6e6; 
+      color: #b30059;
+    }
+    button { 
+      padding:10px 20px; 
+      font-size:16px; 
+      background-color:#ff66b2; 
+      border:none; 
+      border-radius:5px; 
+      cursor:pointer; 
+      color:white;
+      margin-top:20px;
+    }
+  </style>
 </head>
-<body style="text-align:center; font-family:sans-serif; margin-top:50px;">
+<body>
   <h1>Hello, my Valentine 💖</h1>
-  <p>Click below to start your special journey!</p>
-  <button onclick="alert('You are my Valentine! ❤️')">Start</button>
+  <p>Do you want to go on a special date with me?</p>
+  <button onclick="answerYes()">Yes 💕</button>
+  <button onclick="answerNo()">No 😢</button>
+
+  <script>
+    function answerYes() {
+      alert("Yay! I knew you’d say yes! ❤️");
+    }
+    function answerNo() {
+      alert("Oh no! But I’ll keep trying 😉");
+    }
+  </script>
 </body>
 </html>
